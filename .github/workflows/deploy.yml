@@ -17,6 +17,11 @@ jobs:
   push_to_registry:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -26,6 +31,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.REGISTRY }}
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Set .env file  ✨
         run: |
             touch .env
@@ -36,7 +46,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: braintocc/service:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
   deploy:
     needs: [push_to_registry]
     name: Deploy to DigitalOcean
