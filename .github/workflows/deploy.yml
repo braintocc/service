@@ -20,16 +20,16 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-      - name: Set .env file  ✨
-        run: |
-            touch .env
-            echo "${{secrets.ENV_FILE}}" >> .env
       - name: Login to Github Docker Registry
         uses: docker/login-action@v3
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.REGISTRY }}
+      - name: Set .env file  ✨
+        run: |
+            touch .env
+            echo "${{secrets.ENV_FILE}}" >> .env
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v6
   deploy:
