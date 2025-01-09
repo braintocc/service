@@ -39,7 +39,7 @@ jobs:
       - name: Set .env file  ✨
         run: |
             touch .env
-            echo "${{secrets.ENV_FILE}}" >> .env > /dev/null 2>&1
+            echo "${{secrets.ENV_FILE}}" >> .env
       - run: ls -la
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v6
