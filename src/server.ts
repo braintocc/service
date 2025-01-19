@@ -10,9 +10,11 @@ import cors from "cors";
 import MongoStore from 'connect-mongo'
 import { logErrors } from "./middleware/logErrors";
 import { requestLogger } from "./middleware/requestLogger";
+import { getConfiguration } from "./helpers/config";
 
 export const server :  () => Application = () => {
     const app = express()
+    const config = getConfiguration()
 
     app.use(cors())
         .set('trust proxy', 1)
@@ -34,16 +36,16 @@ export const server :  () => Application = () => {
         .use(requestLogger)
         .use(grant.express({
             "defaults": {
-                "origin": env.BASE_URL,
+                "origin": config.BASE_URL,
                 "transport": "state",
             },
             "notion": {
-                "key": env.NOTION_KEY,
-                "secret": env.NOTION_SECRET
+                "key": config.NOTION_KEY,
+                "secret": config.NOTION_SECRET
             },
             "linkedin": {
-                "key": env.LINKEDIN_KEY,
-                "secret": env.LINKEDIN_SECRET,
+                "key": config.LINKEDIN_KEY,
+                "secret": config.LINKEDIN_SECRET,
                 "callback": "/auth/linkedin/callback",
                 "scope":["w_member_social","openid","profile"]
             },
@@ -60,9 +62,9 @@ export const server :  () => Application = () => {
                 ]
             },
             "mastodon": {
-                "subdomain": env.MASTODON_SUBDSOMAIN,
-                "key": env.MASTODON_KEY,
-                "secret": env.MASTODON_SECRET,
+                "subdomain": config.MASTODON_SUBDSOMAIN,
+                "key": config.MASTODON_KEY,
+                "secret": config.MASTODON_SECRET,
                 "callback": "/auth/mastodon/callback",
                 scope: [
                     "write:media",

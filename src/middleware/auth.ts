@@ -1,6 +1,7 @@
 import { env } from "bun";
 import { jwtVerify, createRemoteJWKSet } from "jose";
 import Logger from "../helpers/logger";
+import { getConfiguration } from "../helpers/config";
 
 function getToken(headers: any) {
   if (
@@ -16,9 +17,9 @@ export async function checkJwt(req:any, res: any, next: any) {
     return next()
   
   const rcvdJwt = getToken(req.headers);
-
+  const config = getConfiguration()
   const JWKS = createRemoteJWKSet(
-    new URL(`https://${env.AUTH0_DOMAIN}/.well-known/jwks.json`)
+    new URL(`https://${config.AUTH0_DOMAIN}/.well-known/jwks.json`)
   );
 
   try {
