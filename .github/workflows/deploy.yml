@@ -76,7 +76,7 @@ jobs:
         run: |
           touch .env
           echo "${{secrets.ENV_FILE}}" | base64 --decode > .env
-          scp -r .env ${{secrets.SSH_USER}}@:${{secrets.SSH_HOST}}:/.env
+          scp -r .env ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:/.env
       - name: Start docker container
         run: |
           ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker run -p 80:3000 -d --name=${{env.CONTAINER}} --env-file .env ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:main"
