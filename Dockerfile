@@ -3,7 +3,6 @@ FROM oven/bun:slim
 WORKDIR /app
 
 COPY tsconfig.json .
-COPY .env .
 COPY package.json .
 COPY bun.lockb .
 
