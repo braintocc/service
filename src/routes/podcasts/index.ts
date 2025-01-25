@@ -5,12 +5,11 @@ import { Podcast } from "podcast";
 import { env } from "bun";
 import { checkJwt } from "../../middleware/auth";
 import { getWall } from "../../models/source/notion/getWall";
-import { getConfiguration } from "../../helpers/config";
 
 const router = Router();
 
 router.get("/:id/rss/:accountId/:databaseId", async (req: Request, res: Response) => {
-    const config = getConfiguration()
+
     const user = await User.findById(req.params.id).exec()
     if (!user)
         return res.status(404).send()
@@ -27,7 +26,7 @@ router.get("/:id/rss/:accountId/:databaseId", async (req: Request, res: Response
     const info = Object.fromEntries(podcastDBInfo.description[0].text.content.split('\n').map((text: string) => text.split(':').map((text: string) => text.trim())));
     const feedOption = {
       title: info.title,
-      feedUrl: `${config.BASE_URL}/rss/${databaseId}`,
+      feedUrl: `${env.BASE_URL}/rss/${databaseId}`,
       siteUrl: info.siteUrl,
       author: info.author,
       imageUrl: podcastDBInfo.icon.file.url,

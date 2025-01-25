@@ -6,7 +6,6 @@ import Logger from './helpers/logger';
 import cron from 'node-cron';
 import { processUserMappings } from './models/sender';
 import { User } from './models/user';
-import { initializeConfiguration } from './helpers/config';
 
 cron.schedule('0 0 * * * *', async () => {
     const all = await User.find({subscription:{level: "free"}}).exec()
@@ -26,7 +25,6 @@ cron.schedule('0 */5 * * * *',async () => {
 const port = 3000;
 
 const srv = server().listen(port, async () => {
-  await initializeConfiguration();
   await mongoose.connect(env.MONGODB_URL!);
 });
 
