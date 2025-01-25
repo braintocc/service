@@ -79,8 +79,8 @@ jobs:
           scp -r .env ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:/.env
       - name: Start docker container
         run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker run -p 80:3000 -d --name=${{env.CONTAINER}} --env-file .env ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:main"
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker run -p 80:3000 -d --name=${{env.CONTAINER}} --env-file /.env ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:main"
       - name: Logout from the GitHub Packages Docker Registry
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker logout ${{env.REGISTRY}}"
       - name: Remove .env
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "rm -f .env"
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "rm -f /.env"
