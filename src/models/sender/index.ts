@@ -5,10 +5,11 @@ import { linkedInStrategies } from "../destination/linkedin";
 import { twitterStrategies } from "../destination/twitter";
 import { mastodonStrategies } from "../destination/mastodon";
 import { blueskyStrategies } from "../destination/bluesky";
+import { youtubeStrategies } from "../destination/youtube";
 import { archivePosts } from "../source/notion/archivePosts";
 import { getAwaitingPosts } from "../source/notion/getAwaitingPosts";
 
-const strategies = [...linkedInStrategies, ...twitterStrategies, ...mastodonStrategies, ...substackStrategies, ...blueskyStrategies]
+const strategies = [...linkedInStrategies, ...twitterStrategies, ...mastodonStrategies, ...substackStrategies, ...blueskyStrategies, ...youtubeStrategies]
 
 function postToSocial(posts: any[], destination: any) : Promise<PostResult>[] {
     return posts.map(async (post: any) => {

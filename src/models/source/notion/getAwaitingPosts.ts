@@ -23,9 +23,11 @@ export const getAwaitingPosts = async (databaseId: string, accessToken: string) 
         },
         database_id: databaseId
     });
+    console.log(JSON.stringify(posts.results,null,2))
     return posts.results.map((result: any) => (
         {
             id: result.id,
+            title: result.properties.Text?.title[0]?.text.content,
             content: result.properties.Signature?.rich_text[0]?.text.content
                 ? `${result.properties.Content.rich_text[0]?.text.content} 
 ${result.properties.Signature?.rich_text[0]?.text.content}`

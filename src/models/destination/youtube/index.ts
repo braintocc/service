@@ -2,7 +2,7 @@ import { mediaShare as youtubeMediaShare } from "./mediaShare";
 import { isValidCredentials } from "../../../helpers/credentials";
 import { isMediaShare } from "../../../helpers/posts";
 
-export const twitterStrategies = [
+export const youtubeStrategies = [
     {
         name: "Youtube Media",
         site: "youtube",

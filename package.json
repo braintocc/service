@@ -33,6 +33,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "googleapis": "^144.0.0",
     "grant": "^5.4.22",
     "is-image": "^4.0.0",
     "jose": "^5.2.0",

@@ -1,19 +1,35 @@
-import axios from "axios";
 import Logger from "../../../helpers/logger";
-import { TwitterApi } from "twitter-api-v2";
-import path from "path";
+import { google } from "googleapis";
+import axios from "axios";
+
+const youtube = google.youtube('v3');
+
 
 export async function mediaShare(post: any, destination: any) : Promise<boolean> {
     try {
-        const client = new TwitterApi(destination.accessToken);
+        const { accessToken } = destination
+        const auth = new google.auth.OAuth2()
+        auth.setCredentials({
+            access_token: accessToken
+        })
         const file = await axios.get(post.media.file.url, {
-            responseType: 'arraybuffer'
+            responseType: 'stream'
         });
-        const mediaId = await client.v1.uploadMedia(file.data, { type: path.extname(post.media.name) });
-        await client.v2.tweet({
-            text: post.content,
-            media: { media_ids: [mediaId] }
-        });
+        await youtube.videos.insert({
+            notifySubscribers: true,
+            requestBody: {
+              snippet: {
+                title: post.title,
+                description: post.content,
+              },
+              status: {
+                privacyStatus: 'public',
+              },
+            },
+            media: {
+              body: file.data,
+            },
+          })
         return true
     }
     catch (error) {

@@ -68,7 +68,13 @@ export const server :  () => Application = () => {
                     "write:statuses",
                     "profile"
                 ]
-            }
+            },
+            "google": {
+                "key": env.GOOGLE_CLIENTID,
+                "secret": env.GOOGLE_CLIENTSECRET,
+                "callback": "/auth/google/callback",
+                "scope":["profile","email","https://www.googleapis.com/auth/youtube.upload"]
+            },
         }))
         .use("/auth", authRoute)
         .use("/connect", authRoute)
