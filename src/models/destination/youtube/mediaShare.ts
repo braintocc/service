@@ -16,7 +16,9 @@ export async function mediaShare(post: any, destination: any) : Promise<boolean>
             responseType: 'stream'
         });
         await youtube.videos.insert({
-            notifySubscribers: true,
+            auth,
+            part: 'snippet,status',
+            notifySubscribers: false,
             requestBody: {
               snippet: {
                 title: post.title,

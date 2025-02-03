@@ -21,7 +21,6 @@ function postToSocial(posts: any[], destination: any) : Promise<PostResult>[] {
                     error: "Incompatible Template version, please update your template"
                 } 
             };
-        
         const results = await Promise.all(strategies.
             filter(strategy => strategy.shouldRun(post, destination.find((destination: any) => strategy.site === destination.site)))
             .map(strategy => strategy.run(post, destination.find((destination: any) => strategy.site === destination.site))))
@@ -32,6 +31,7 @@ function postToSocial(posts: any[], destination: any) : Promise<PostResult>[] {
                 error: "Unable to publish to one of more target social network"
             } 
         };
+        
     });
 }
 

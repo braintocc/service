@@ -6,7 +6,7 @@ export const youtubeStrategies = [
     {
         name: "Youtube Media",
         site: "youtube",
-        shouldRun: (post: any, destination: any) => isMediaShare(post) && post.targets.includes("Youtube") && isValidCredentials(destination),
+        shouldRun: (post: any, destination: any) => isMediaShare(post) && post.targets.includes("youtube") && isValidCredentials(destination),
         run: (post: any, destination: any) => youtubeMediaShare(post, destination)
     },
 ];
