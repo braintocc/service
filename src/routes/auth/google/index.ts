@@ -12,12 +12,16 @@ router.get("/callback", async (req: Request, res: Response)=>{
     const integrations: string[] = ["social"]
     const site: string = "youtube"
     const accessToken = res.locals.grant.response.access_token
+    const refreshtoken = res.locals.grant.response.refresh_token
+    const expiredate = Date.now() + (res.locals.grant.response.raw.expires_in*1000)
     const userDB = await User.findOne({email: req.session.grant.dynamic.user}).exec()
     userDB.destinations = {...userDB?.destinations, [name]: {
         name,
         integrations,
         site,
         accessToken,
+        refreshtoken,
+        expiredate
     }}
     await userDB?.save()
     res.redirect(req.session.grant.dynamic.origin);

@@ -72,6 +72,7 @@ export const server :  () => Application = () => {
             "google": {
                 "key": env.GOOGLE_CLIENTID,
                 "secret": env.GOOGLE_CLIENTSECRET,
+                "custom_params": {"access_type": "offline", "prompt": "consent"},
                 "callback": "/auth/google/callback",
                 "scope":["profile","email","https://www.googleapis.com/auth/youtube.upload"]
             },
