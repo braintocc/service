@@ -35,6 +35,7 @@
     "express-session": "^1.17.3",
     "googleapis": "^144.0.0",
     "grant": "^5.4.22",
+    "instagram-private-api": "^1.46.1",
     "is-image": "^4.0.0",
     "jose": "^5.2.0",
     "linkedin-api-client": "^0.3.0",

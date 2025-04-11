@@ -32,6 +32,7 @@ export const getAwaitingPosts = async (databaseId: string, accessToken: string) 
 ${result.properties.Signature?.rich_text[0]?.text.content}`
                 : result.properties.Content.rich_text[0]?.text.content,
             media: result.properties.Media.files[0],
+            cover: result.properties.Cover.files[0],
             targets: result.properties.Target.multi_select.map((select: any) => select.name),
             version: result.properties.Version.rich_text[0]?.text.content.split("."),
         }));

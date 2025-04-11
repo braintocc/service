@@ -6,6 +6,7 @@ import { auth as twitterAuth } from "./twitter";
 import { auth as mastodonAuth } from "./mastodon";
 import { auth as substackAuth } from "./substack";
 import { auth as blueskyAuth } from "./bluesky";
+import { auth as instagramAuth } from "./instagram";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/twitter", twitterAuth)
 router.use("/mastodon", mastodonAuth)
 router.use("/substack", substackAuth)
 router.use("/bluesky", blueskyAuth)
+router.use("/instagram", instagramAuth)
 
 export const auth = router
