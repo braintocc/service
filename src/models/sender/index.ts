@@ -14,7 +14,7 @@ const strategies = [...linkedInStrategies, ...twitterStrategies, ...mastodonStra
 
 function postToSocial(posts: any[], destination: any) : Promise<PostResult>[] {
     return posts.map(async (post: any) => {
-        if(post.version[0] < 0 || post.version[1] < 1)
+        if(post.version[0] < 0 || post.version[1] < 7)
             return { 
                 id: post.id, 
                 result: {
