@@ -1,5 +1,6 @@
 import { createRestAPIClient } from "masto";
 import Logger from '../../../helpers/logger';
+import { splitStringBySize } from "../../../helpers/splitStringBySize";
 
 
 export async function mediaShare(post: any, destination: any) : Promise<boolean> {
@@ -12,11 +13,14 @@ export async function mediaShare(post: any, destination: any) : Promise<boolean>
         const attachment = await masto.v2.media.create({
             file: new File([file as any], post.media.name)
         })
-        await masto.v1.statuses.create({
-            status: post.content,
-            mediaIds: [attachment.id]
-
-        });
+        const arrayPosts = splitStringBySize(post.content, 450)
+        await Promise.all((arrayPosts).map(async (content: string, index: number) => {
+            await masto.v1.statuses.create({
+                    status: `${content}
+(${index+1}/${arrayPosts.length})`,
+                mediaIds: index === 0 ? [attachment.id] : undefined
+            });
+        }));
         return true
     }
     catch (error: any) {
