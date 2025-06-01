@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+ 
+jobs:
+  openssl:
+    name: Recover With OpenSSL
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - env:
+          MY_SSH_KEY: ${{ secrets.SSH_KEY }}
+          MY_SSH_HOST: ${{ secrets.SSH_HOST }}
+          MY_SSH_USER: ${{ secrets.SSH_USER }}
+          MY_ENV_FILE: ${{ secrets.ENV_FILE }}
+          MY_OPENSSL_PASSWORD: ${{ secrets.MY_OPENSSL_PASSWORD }}
+          MY_OPENSSL_ITER: ${{ secrets.MY_OPENSSL_ITER }}
+        run: |
+          echo "MY_CLIENT_SECRET (***)     = ${MY_CLIENT_SECRET}"
+          echo "MY_CLIENT_SECRET (openssl) = $(echo "${MY_CLIENT_SECRET}" | openssl enc -e -aes-256-cbc -a -pbkdf2 -iter ${MY_OPENSSL_ITER} -k "${MY_OPENSSL_PASSWORD}")"
+          echo "Copy the above value, and then execute locally:"
+          echo "echo PASTE_HERE | openssl base64 -d | openssl enc -d -pbkdf2 -iter \$MY_OPENSSL_ITER -aes-256-cbc -k \$MY_OPENSSL_PASSWORD"
