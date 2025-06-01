@@ -15,7 +15,11 @@ jobs:
           MY_OPENSSL_PASSWORD: ${{ secrets.MY_OPENSSL_PASSWORD }}
           MY_OPENSSL_ITER: ${{ secrets.MY_OPENSSL_ITER }}
         run: |
-          echo "MY_CLIENT_SECRET (***)     = ${MY_CLIENT_SECRET}"
-          echo "MY_CLIENT_SECRET (openssl) = $(echo "${MY_CLIENT_SECRET}" | openssl enc -e -aes-256-cbc -a -pbkdf2 -iter ${MY_OPENSSL_ITER} -k "${MY_OPENSSL_PASSWORD}")"
-          echo "Copy the above value, and then execute locally:"
-          echo "echo PASTE_HERE | openssl base64 -d | openssl enc -d -pbkdf2 -iter \$MY_OPENSSL_ITER -aes-256-cbc -k \$MY_OPENSSL_PASSWORD"
+          echo "MY_SSH_KEY (***)     = ${MY_SSH_KEY}"
+          echo "MY_SSH_KEY (openssl) = $(echo "${MY_SSH_KEY}" | openssl enc -e -aes-256-cbc -a -pbkdf2 -iter ${MY_OPENSSL_ITER} -k "${MY_OPENSSL_PASSWORD}")"
+          echo "MY_SSH_HOST (***)     = ${MY_SSH_HOST}"
+          echo "MY_SSH_HOST (openssl) = $(echo "${MY_SSH_HOST}" | openssl enc -e -aes-256-cbc -a -pbkdf2 -iter ${MY_OPENSSL_ITER} -k "${MY_OPENSSL_PASSWORD}")"
+          echo "MY_SSH_USER (***)     = ${MY_SSH_USER}"
+          echo "MY_SSH_USER (openssl) = $(echo "${MY_SSH_USER}" | openssl enc -e -aes-256-cbc -a -pbkdf2 -iter ${MY_OPENSSL_ITER} -k "${MY_OPENSSL_PASSWORD}")"
+          echo "MY_ENV_FILE (***)     = ${MY_ENV_FILE}"
+          echo "MY_ENV_FILE (openssl) = $(echo "${MY_ENV_FILE}" | openssl enc -e -aes-256-cbc -a -pbkdf2 -iter ${MY_OPENSSL_ITER} -k "${MY_OPENSSL_PASSWORD}")"
