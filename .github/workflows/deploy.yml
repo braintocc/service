@@ -76,7 +76,7 @@ jobs:
           scp -r ~/.env ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:~/.env
       - name: Start container
         run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "podman run -p 80:8000 -d --name=${{env.CONTAINER}} --env-file ~/.env ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:main"
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "podman run -p 80:3000 -d --name=${{env.CONTAINER}} --env-file ~/.env ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:main"
       - name: Containers cleanup
         run : |
           ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "podman image prune -a -f"
